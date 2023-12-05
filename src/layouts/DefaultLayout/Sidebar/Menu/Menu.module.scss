@@ -1,0 +1,46 @@
+.menu-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.699);
+    font-weight: 700;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 200ms ease-in-out 0s;
+    &.active {
+        color: white;
+
+        .icon {
+            display: none;
+        }
+
+        .active-icon {
+            display: flex;
+        }
+    }
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}
+
+.title {
+    margin-left: 16px;
+}
+
+.icon-wrapper {
+    display: flex;
+    height: 3rem;
+    width: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon,
+.active-icon {
+    display: flex;
+    width: 1.8rem;
+}
+
+.active-icon {
+    display: none;
+}

@@ -1,0 +1,76 @@
+.wrapper {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: var(--font-family);
+    border-radius: 4px;
+    min-width: 100px;
+    padding: 8px 16px;
+    background-color: var(--white);
+    cursor: pointer;
+    border: 1px solid transparent;
+    user-select: none;
+    justify-content: center;
+    + .wrapper {
+        margin-left: 16px;
+    }
+
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+
+//Button types
+.primary {
+    background-color: var(--primary);
+    color: var(--white);
+
+    &:hover {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
+    }
+}
+
+.outline {
+    color: var(--primary);
+    border-color: currentColor;
+
+    &:hover {
+        background-color: rgba(254, 44, 85, 0.08);
+    }
+}
+
+.upload {
+    border-color: rgba(22, 24, 35, 0.12);
+    min-width: 110px;
+    border-radius: 2px;
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}
+
+// Button Size
+.small {
+    min-width: 88px;
+    padding: 4px 16px;
+}
+
+.large {
+    min-width: 168px;
+    padding: 14px 16px;
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    width: 20px;
+    text-align: center;
+}
+
+// Icon
+.icon + .title,
+.title + .icon {
+    margin-left: 8px;
+}

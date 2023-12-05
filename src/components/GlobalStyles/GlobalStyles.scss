@@ -5,6 +5,12 @@
     --primary: #60afdf;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     font-size: 62.5%;
 }
@@ -12,4 +18,16 @@ html {
 body {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.6rem;
+}
+
+button,
+input,
+[tabindex] {
+    border: none;
+    outline: none;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
 }
