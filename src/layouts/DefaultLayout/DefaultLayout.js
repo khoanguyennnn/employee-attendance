@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { ToastContainer, toast } from 'react-toastify';
 
 import styles from './DefaultLayout.module.scss';
 import Header from "./Header";
@@ -16,6 +17,18 @@ function DefaultLayout({ children }) {
                     {children}
                 </div>
             </div>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </div>
     );
 }

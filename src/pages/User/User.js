@@ -14,15 +14,21 @@ function User() {
     const [listUsers, setListUsers] = useState([]);
     const [totalUsers, setTotalUsers] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+
     const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
+
+    const handleClose = () => {
+        setIsShowModalAddNew(false);
+    }
+
+    const handleUpdateTable = (user) => {
+        setListUsers([user, ...listUsers])
+    }
 
     useEffect(() => {
         getUsers(1);
     }, [])
 
-    const handleClose = () => {
-        setIsShowModalAddNew(false);
-    }
 
     const getUsers = async (page) => {
         let res = await fetchAllUser(page);
@@ -42,7 +48,10 @@ function User() {
             <div className={cx('user-list')}>
                 <div className={cx('title')}>
                     <h1>Users List</h1>
-                    <Button outline className={cx('btn-add')} onClick={() => setIsShowModalAddNew(true)}>Add new user</Button>
+                    <Button outline className={cx('btn-add')}
+                        onClick={() => setIsShowModalAddNew(true)}>
+                        Add new user
+                    </Button>
                 </div>
                 <table className={cx('table')}>
                     <thead>
@@ -81,7 +90,11 @@ function User() {
                 nextLinkClassName={cx('page-num')}
                 activeLinkClassName={cx('active')}
             />
-            <ModalAddNew show={isShowModalAddNew} handleClose={handleClose} />
+            <ModalAddNew
+                show={isShowModalAddNew}
+                handleClose={handleClose}
+                handleUpdateTable={handleUpdateTable}
+            />
         </section>
     );
 }
