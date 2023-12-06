@@ -1,0 +1,87 @@
+.user {
+    width: calc(1903px - 300px);
+    margin-top: 20px;
+}
+
+.user-list {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1.6rem;
+    min-width: 100%;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+}
+
+table thead tr {
+    color: #fff;
+    background-color: var(--primary);
+    text-align: left;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+}
+
+.table tbody tr {
+    color: var(--primary);
+    border-bottom: 1px solid #ddd;
+}
+
+.table tbody tr:nth-of-type(even) {
+    color: #fff;
+    background-color: var(--primary);
+}
+
+.table tbody tr.active {
+    font-weight: 400;
+    color: var(--primary);
+}
+
+.table tbody tr:last-of-type {
+    border-bottom: 2px solid var(--primary);
+}
+
+.pagination {
+    margin-top: 15px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    gap: 5px;
+}
+
+.pagination .page-num {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 400;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    &:hover {
+        background-color: #0a6b97;
+    }
+}
+
+.pagination .active {
+    background-color: #0a6b97;
+}

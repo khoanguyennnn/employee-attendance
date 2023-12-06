@@ -1,9 +1,12 @@
 .wrapper {
+    z-index: 100;
+    position: fixed;
     width: 100%;
     height: 60px;
     box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
     display: flex;
     justify-content: space-between;
+    background-color: white;
 }
 .logo {
     height: 100%;
@@ -23,6 +26,18 @@
     font-size: 2rem;
 }
 
+.actions-btn {
+    color: var(--primary);
+    width: 175px;
+    display: flex;
+    justify-content: start;
+    transition: background-color 200ms ease-in-out 0s;
+
+    &:hover {
+        background-color: rgb(173, 167, 167);
+    }
+}
+
 .profile {
     position: relative;
     height: 100%;
@@ -38,7 +53,7 @@
         width: 1px;
         top: 16px;
         left: 10px;
-        background-color: rgba(148, 148, 148, 0.384);
+        background-color: rgba(118, 167, 187, 0.795);
     }
 }
 
@@ -49,4 +64,8 @@
     object-fit: cover;
     border-radius: 50%;
     margin-right: 8px;
+}
+
+.user-name {
+    color: var(--primary);
 }

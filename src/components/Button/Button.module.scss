@@ -12,9 +12,6 @@
     border: 1px solid transparent;
     user-select: none;
     justify-content: center;
-    + .wrapper {
-        margin-left: 16px;
-    }
 
     &.disabled {
         pointer-events: none;
