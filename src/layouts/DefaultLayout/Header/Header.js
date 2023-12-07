@@ -1,16 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightFromBracket, faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
 import Button from "~/components/Button";
 
 import styles from './Header.module.scss';
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles)
 
 function Header() {
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+        toast.success("Log Out success");
+    }
+
     return (<header className={cx('wrapper')}>
         <Link className={cx('logo')} to={`/`}>
             <FontAwesomeIcon className={cx('user-logo')} icon={faUserCheck} />
@@ -26,7 +35,7 @@ function Header() {
                         <Button className={cx('actions-btn')} leftIcon={<FontAwesomeIcon icon={faUser} />}>
                             <p>View Profile</p>
                         </Button>
-                        <Button className={cx('actions-btn')} leftIcon={<FontAwesomeIcon icon={faRightFromBracket} />}>
+                        <Button className={cx('actions-btn')} leftIcon={<FontAwesomeIcon icon={faRightFromBracket} />} onClick={() => handleLogOut()}>
                             <p>Log out</p>
                         </Button>
                     </PopperWrapper>

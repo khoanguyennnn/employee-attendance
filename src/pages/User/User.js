@@ -83,8 +83,11 @@ function User() {
             <div className={cx('user-list')}>
                 <div className={cx('title')}>
                     <h1>Users List</h1>
-                    <Button outline className={cx('btn-add')}
-                        onClick={() => setIsShowModalAddNew(true)}>
+                    <Button
+                        outline
+                        className={cx('btn-add')}
+                        onClick={() => setIsShowModalAddNew(true)}
+                    >
                         Add new user
                     </Button>
                 </div>

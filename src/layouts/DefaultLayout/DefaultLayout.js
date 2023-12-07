@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
-import { ToastContainer, toast } from 'react-toastify';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './DefaultLayout.module.scss';
 import Header from "./Header";
@@ -8,6 +9,17 @@ import Sidebar from "./Sidebar";
 const cx = classNames.bind(styles)
 
 function DefaultLayout({ children }) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        let token = localStorage.getItem("token");
+        if (token) {
+            navigate('/');
+        } else {
+            navigate('/login');
+        }
+    }, []);
+
     return (
         <div className={cx('wrapper')}>
             <Header />
@@ -17,18 +29,6 @@ function DefaultLayout({ children }) {
                     {children}
                 </div>
             </div>
-            <ToastContainer
-                position="bottom-left"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
         </div>
     );
 }
