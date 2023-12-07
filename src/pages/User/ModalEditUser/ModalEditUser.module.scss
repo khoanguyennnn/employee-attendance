@@ -1,0 +1,17 @@
+.body-add-new {
+    font-size: 1.6rem;
+}
+
+.form-control {
+    font-size: 1.6rem;
+}
+
+.title {
+    font-size: 2rem !important;
+}
+
+.form-group {
+    + .form-group {
+        margin-top: 20px;
+    }
+}
