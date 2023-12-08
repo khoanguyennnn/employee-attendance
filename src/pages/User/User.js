@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { Button as Btn } from 'react-bootstrap';
 import _ from "lodash";
+import { debounce } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 
 import { fetchAllUser } from "~/services/userService";
 import styles from './User.module.scss';
@@ -25,6 +28,9 @@ function User() {
 
     const [dataUserEdit, setDataUserEdit] = useState({});
     const [dataUserDelete, setDataUserDelete] = useState({});
+
+    const [sortBy, setSortBy] = useState("asc");
+    const [sortField, setSortField] = useState("id");
 
     const handleClose = () => {
         setIsShowModalAddNew(false);
@@ -78,6 +84,26 @@ function User() {
         setDataUserDelete(user);
     }
 
+    const handleSort = (sortBy, sortField) => {
+        setSortBy(sortBy);
+        setSortField(sortField);
+
+        let cloneListUsers = _.cloneDeep(listUsers);
+        cloneListUsers = _.orderBy(cloneListUsers, [sortField], [sortBy])
+        setListUsers(cloneListUsers);
+    }
+
+    const handleSearch = debounce((event) => {
+        let term = event.target.value;
+        if (term) {
+            let cloneListUsers = _.cloneDeep(listUsers);
+            cloneListUsers = cloneListUsers.filter(item => item.email.includes(term));
+            setListUsers(cloneListUsers);
+        } else {
+            getUsers(1);
+        }
+    }, 300)
+
     return (
         <section className={cx('user')}>
             <div className={cx('user-list')}>
@@ -91,12 +117,38 @@ function User() {
                         Add new user
                     </Button>
                 </div>
+                <div className='col-6 my-3'>
+                    <input
+                        className={cx('form-control')}
+                        placeholder={"Search user by email"}
+                        // value={keyword}
+                        onChange={(event) => handleSearch(event)}
+                    />
+                </div>
                 <table className={cx('table')}>
                     <thead>
                         <tr>
-                            <td>ID</td>
+                            <td>
+                                <div className={cx('sort-header')}>
+                                    <span>ID</span>
+                                    <span className={cx('sort-icon')}>
+                                        {sortBy === "asc" ? <FontAwesomeIcon onClick={() => handleSort("desc", "id")} icon={faSortDown} />
+                                            : <FontAwesomeIcon onClick={() => handleSort("asc", "id")} icon={faSortUp} />}
+                                    </span>
+                                </div>
+                            </td>
                             <td>Email</td>
-                            <td>First Name</td>
+                            <td>
+                                <div className={cx('sort-header')}>
+                                    <span>First Name</span>
+                                    <span className={cx('sort-icon')}>
+                                        {sortBy === "asc" ?
+                                            <FontAwesomeIcon onClick={() => handleSort("desc", "first_name")} icon={faSortDown} />
+                                            : <FontAwesomeIcon onClick={() => handleSort("asc", "first_name")} icon={faSortUp} />
+                                        }
+                                    </span>
+                                </div>
+                            </td>
                             <td>Last Name</td>
                             <td>Actions</td>
                         </tr>

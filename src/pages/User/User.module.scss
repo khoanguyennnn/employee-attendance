@@ -40,6 +40,20 @@ table thead tr {
     padding: 12px 15px;
 }
 
+.sort-header {
+    display: flex;
+    align-items: center;
+}
+
+.sort-icon {
+    height: 30px;
+    width: 30px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
 .table tbody tr {
     color: var(--primary);
     border-bottom: 1px solid #ddd;

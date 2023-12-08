@@ -13,9 +13,7 @@ function DefaultLayout({ children }) {
 
     useEffect(() => {
         let token = localStorage.getItem("token");
-        if (token) {
-            navigate('/');
-        } else {
+        if (!token) {
             navigate('/login');
         }
     }, []);
