@@ -5,12 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GlobalStyles from './components/GlobalStyles';
+import { UserProvider } from './context/UserContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <GlobalStyles>
-    <App />
-  </GlobalStyles>
+  <React.StrictMode>
+    <UserProvider>
+      <GlobalStyles>
+        <App />
+      </GlobalStyles>
+    </UserProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

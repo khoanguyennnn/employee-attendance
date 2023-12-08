@@ -5,17 +5,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
 import Button from "~/components/Button";
+import { useContext } from "react";
 
 import styles from './Header.module.scss';
 import { toast } from "react-toastify";
+import { UserContext } from "~/context/UserContext";
 
 const cx = classNames.bind(styles)
 
 function Header() {
+    const { logout } = useContext(UserContext);
+
     const navigate = useNavigate();
 
     const handleLogOut = () => {
-        localStorage.removeItem("token");
+        logout();
         navigate("/login");
         toast.success("Log Out success");
     }

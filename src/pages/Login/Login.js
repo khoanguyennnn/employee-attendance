@@ -3,16 +3,19 @@ import { faEyeSlash, faEye, faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
 import classNames from "classnames/bind";
 import styles from './Login.module.scss';
 import { loginApi } from "~/services/userService";
+import { UserContext } from "~/context/UserContext";
 
 
 const cx = classNames.bind(styles)
 
 function Login() {
     const navigate = useNavigate();
+    const { loginContext } = useContext(UserContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +40,7 @@ function Login() {
         setShowLoading(true);
         let res = await loginApi(email, password);
         if (res && res.token) {
-            localStorage.setItem("token", res.token)
+            loginContext(email, res.token);
             navigate("/");
         } else {
             // error
