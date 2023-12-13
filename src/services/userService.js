@@ -48,6 +48,21 @@ const postUserPassword = (email, password) => {
     return axios.post('/api/user/change/password', { email, password }, { headers: { "Authorization": `Bearer ${myToken}` } })
 }
 
+const postUserAttendance = () => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.post('/api/user/take/attendance', {}, { headers: { "Authorization": `Bearer ${myToken}` } })
+}
+
+const postUserCheckOut = () => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.post('/api/user/check/out', {}, { headers: { "Authorization": `Bearer ${myToken}` } })
+}
+
+const getAllUserAttendance = () => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.get('/api/users/get/all/atten/user', { headers: { "Authorization": `Bearer ${myToken}` } })
+}
+
 export {
     fetchAllUser,
     postCreateUser,
@@ -58,5 +73,8 @@ export {
     postForgot,
     postOTP,
     postUserPassword,
-    fetchUser
+    fetchUser,
+    postUserAttendance,
+    postUserCheckOut,
+    getAllUserAttendance
 };

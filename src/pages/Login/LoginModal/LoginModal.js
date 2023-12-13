@@ -39,7 +39,6 @@ function LoginModal(props) {
         }
         setShowLoading(true);
         let res = await loginApi(email, password);
-        console.log("Check res loginModal: ", res);
         if (res && res.accessToken) {
             loginContext(email, res.accessToken);
             navigate("/");

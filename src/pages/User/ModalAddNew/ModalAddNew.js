@@ -19,7 +19,7 @@ const ModalAddNew = (props) => {
     const [role, setRole] = useState("");
     const [rate, setRate] = useState("12");
     const [roleTitle, setRoleTitle] = useState("Choose a role");
-    const [active, setActive] = useState(false);
+    const active = true;
 
     const handleCloseUser = () => {
         handleClose();
@@ -34,10 +34,8 @@ const ModalAddNew = (props) => {
     const handleRoleTitle = (role) => {
         setRole(role);
         if (role === "employee") {
-            setActive(true);
             setRoleTitle("Employee")
         } else if (role === "manager") {
-            setActive(false)
             setRoleTitle("Manager")
         }
     }

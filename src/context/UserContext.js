@@ -15,7 +15,6 @@ const UserProvider = ({ children }) => {
         }));
         localStorage.setItem("accessToken", token);
         localStorage.setItem("email", email);
-        console.log("Check Email UserContext: ", email);
     };
 
     // Logout updates the user data to default

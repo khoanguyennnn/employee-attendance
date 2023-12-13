@@ -20,9 +20,6 @@ function Header() {
     const { logout, user } = useContext(UserContext);
     const [userInfo, setUserInfo] = useState([]);
 
-    console.log("Local", localStorage.getItem("email"));
-    console.log("Context", user.email);
-
     useEffect(() => {
         getUser();
     }, [])

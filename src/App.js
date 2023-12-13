@@ -7,8 +7,7 @@ import { DefaultLayout } from './layouts';
 import { UserContext } from './context/UserContext';
 
 function App() {
-  const { user, loginContext } = useContext(UserContext);
-  console.log(user);
+  const { loginContext } = useContext(UserContext);
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
