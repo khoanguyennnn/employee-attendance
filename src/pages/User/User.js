@@ -139,8 +139,8 @@ function User() {
                                     <span>First Name</span>
                                     <span className={cx('sort-icon')}>
                                         {sortBy === "asc" ?
-                                            <FontAwesomeIcon onClick={() => handleSort("desc", "first_name")} icon={faSortDown} />
-                                            : <FontAwesomeIcon onClick={() => handleSort("asc", "first_name")} icon={faSortUp} />
+                                            <FontAwesomeIcon onClick={() => handleSort("desc", "First_name")} icon={faSortDown} />
+                                            : <FontAwesomeIcon onClick={() => handleSort("asc", "First_name")} icon={faSortUp} />
                                         }
                                     </span>
                                 </div>
