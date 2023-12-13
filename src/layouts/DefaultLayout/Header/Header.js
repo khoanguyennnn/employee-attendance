@@ -5,23 +5,43 @@ import { Link, useNavigate } from 'react-router-dom';
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from '../../../components/Popper';
 import Button from "~/components/Button";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import styles from './Header.module.scss';
 import { toast } from "react-toastify";
 import { UserContext } from "~/context/UserContext";
+import { fetchUser } from "~/services/userService";
 
 const cx = classNames.bind(styles)
 
 function Header() {
-    const { logout } = useContext(UserContext);
-
     const navigate = useNavigate();
+
+    const { logout, user } = useContext(UserContext);
+    const [userInfo, setUserInfo] = useState([]);
+
+    console.log("Local", localStorage.getItem("email"));
+    console.log("Context", user.email);
+
+    useEffect(() => {
+        getUser();
+    }, [])
+
+    const getUser = async () => {
+        let res = await fetchUser();
+        if (res && res.length > 0) {
+            setUserInfo(res)
+        }
+    }
 
     const handleLogOut = () => {
         logout();
         navigate("/login");
         toast.success("Log Out success");
+    }
+
+    const handleChangePassword = () => {
+        navigate("/passwordchange");
     }
 
     return (<header className={cx('wrapper')}>
@@ -36,24 +56,21 @@ function Header() {
             render={(attrs) => (
                 <div className={cx('actions')} tabIndex="-1" {...attrs}>
                     <PopperWrapper className={cx('menu-popper')}>
-                        <Button className={cx('actions-btn')} leftIcon={<FontAwesomeIcon icon={faUser} />}>
-                            <p>View Profile</p>
+                        <Button className={cx('actions-btn')} leftIcon={<FontAwesomeIcon icon={faUser} />} onClick={() => handleChangePassword()}>
+                            <p>Change Password</p>
                         </Button>
-                        <Button className={cx('actions-btn')} leftIcon={<FontAwesomeIcon icon={faRightFromBracket} />} onClick={() => handleLogOut()}>
+                        <Button className={cx('actions-btn')} leftIcon={<FontAwesomeIcon icon={faRightFromBracket} />} onClick={handleLogOut}>
                             <p>Log out</p>
                         </Button>
                     </PopperWrapper>
                 </div>
             )}
         >
-            <div className={cx('profile')}>
-                <img
-                    className={cx('user-avatar')}
-                    src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/0957415902a09a46a68940814166f5ca~c5_100x100.jpeg?x-expires=1701964800&x-signature=N0U0fS%2Fx6AwFxcu8qr%2FmCj2DPGg%3D"
-                    alt=""
-                />
-                <p className={cx('user-name')}>Nguyen Van A</p>
-            </div>
+            {user && user.auth &&
+                <div className={cx('profile')}>
+                    <p className={cx('user-name')}>Welcome {userInfo[0]?.First_name}!</p>
+                </div>
+            }
         </Tippy>
     </header>);
 }

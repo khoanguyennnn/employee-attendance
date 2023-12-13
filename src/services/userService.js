@@ -1,24 +1,62 @@
 // import axios from "axios";
 import axios from "./axios";
 
-const fetchAllUser = (page) => {
-    return axios.get(`/api/users?page=${page}`);
+const fetchAllUser = () => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.get(`/api/users/get/all/user`, { headers: { "Authorization": `Bearer ${myToken}` } });
 }
 
-const postCreateUser = (name, job) => {
-    return axios.post('/api/users', { name, job })
+const fetchUser = () => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.post(`/api/getUser`, {}, { headers: { "Authorization": `Bearer ${myToken}` } });
 }
 
-const putUpdateUser = (name, job) => {
-    return axios.put('/api/users/', { name, job })
+const postCreateUser = (email, password, Role, Rate, First_name, Last_name, Active) => {
+    return axios.post('/api/addNewUser', { email, password, Role, Rate, First_name, Last_name, Active })
 }
 
-const deleteUser = (id) => {
-    return axios.delete(`/api/users/${id}`)
+const putUpdateUserRole = (email, Role) => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.post('/api/users/change/user/role', { email, Role }, { headers: { "Authorization": `Bearer ${myToken}` } })
+}
+
+const putUpdateUserEmail = (email, changeEmail) => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.post('/api/users/change/user/email', { email, changeEmail }, { headers: { "Authorization": `Bearer ${myToken}` } })
+}
+
+const deleteUser = (email) => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.post(`/api/users/deactive/user`, { email }, { headers: { "Authorization": `Bearer ${myToken}` } });
 }
 
 const loginApi = (email, password) => {
-    return axios.post('/api/login', { email, password });
+    var myToken = localStorage.getItem('accessToken');
+    return axios.post('/api/user/login', { email, password }, { headers: { "Authorization": `Bearer ${myToken}` } });
 }
 
-export { fetchAllUser, postCreateUser, putUpdateUser, deleteUser, loginApi };
+const postForgot = (email) => {
+    return axios.post('/api/user/forgot/password', { email })
+}
+
+const postOTP = (email, OTP) => {
+    return axios.post('/api/user/check/valid/OTP', { email, OTP })
+}
+
+const postUserPassword = (email, password) => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.post('/api/user/change/password', { email, password }, { headers: { "Authorization": `Bearer ${myToken}` } })
+}
+
+export {
+    fetchAllUser,
+    postCreateUser,
+    putUpdateUserRole,
+    putUpdateUserEmail,
+    deleteUser,
+    loginApi,
+    postForgot,
+    postOTP,
+    postUserPassword,
+    fetchUser
+};

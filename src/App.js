@@ -1,11 +1,21 @@
-import { Fragment } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './layouts';
+import { UserContext } from './context/UserContext';
 
 function App() {
+  const { user, loginContext } = useContext(UserContext);
+  console.log(user);
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      loginContext(localStorage.getItem("email"), localStorage.getItem("accessToken"))
+    }
+  }, [])
+
   return (
     <Router>
       <div className="App">

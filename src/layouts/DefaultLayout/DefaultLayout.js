@@ -12,7 +12,7 @@ function DefaultLayout({ children }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        let token = localStorage.getItem("token");
+        let token = localStorage.getItem("accessToken");
         if (!token) {
             navigate('/login');
         }

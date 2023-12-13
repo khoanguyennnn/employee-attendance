@@ -13,12 +13,15 @@ const UserProvider = ({ children }) => {
             email: email,
             auth: true,
         }));
-        localStorage.setItem("token", token)
+        localStorage.setItem("accessToken", token);
+        localStorage.setItem("email", email);
+        console.log("Check Email UserContext: ", email);
     };
 
     // Logout updates the user data to default
     const logout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("email");
         setUser((user) => ({
             email: '',
             auth: false,

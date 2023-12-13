@@ -13,6 +13,7 @@ function Sidebar() {
             <h3 className={cx('title')}>Admin</h3>
             <Menu>
                 <MenuItem title="Dashboard" to={'/dashboard'} icon={<FontAwesomeIcon icon={faTableColumns} />} activeIcon={<FontAwesomeIcon icon={faTableColumns} />} />
+                <MenuItem title="User" to={'/user'} icon={<FontAwesomeIcon icon={faCircleUser} />} activeIcon={<FontAwesomeIcon icon={faCircleUser} />} />
             </Menu>
             <div className={cx('line-wrapper')}>
                 <span className={cx('lines')}></span>
@@ -25,7 +26,6 @@ function Sidebar() {
                     icon={<FontAwesomeIcon icon={faUsers} />}
                     activeIcon={<FontAwesomeIcon icon={faUsers} />}
                 />
-                <MenuItem title="User" to={'/user'} icon={<FontAwesomeIcon icon={faCircleUser} />} activeIcon={<FontAwesomeIcon icon={faCircleUser} />} />
             </Menu>
         </aside>
     );

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://reqres.in',
+    baseURL: 'http://localhost:4000',
 });
 
 // Add a response interceptor
@@ -9,7 +9,7 @@ instance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response.data ? response.data : { statusCode: response.status };
-}, function (error) {
+}, async error => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     let res = {};
@@ -24,6 +24,12 @@ instance.interceptors.response.use(function (response) {
         // `error.request` is an instance of XMLHttpRequest in the browser 
         // and an instance of http.ClientRequest in node.js
         console.log(error.request);
+    } else if (error.response.status === 403) {
+        const res = await axios.post('/user/login', {}, { withCredentials: true });
+        if (res.status === 200) {
+            axios.defaults.headers.common['authorization'] = `Bearer ${res.data['accessToken']}`;
+            return axios(error.config);
+        }
     } else {
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message);

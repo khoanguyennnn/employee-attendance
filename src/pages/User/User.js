@@ -6,6 +6,7 @@ import _ from "lodash";
 import { debounce } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import { fetchAllUser } from "~/services/userService";
 import styles from './User.module.scss';
@@ -17,7 +18,6 @@ import ModalConfirm from './ModalConfirm';
 const cx = classNames.bind(styles)
 
 function User() {
-
     const [listUsers, setListUsers] = useState([]);
     const [totalUsers, setTotalUsers] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -44,15 +44,16 @@ function User() {
 
     const handleEditUserFromModal = (user) => {
         let cloneListUsers = _.cloneDeep(listUsers);
-        let index = listUsers.findIndex(item => item.id === user.id);
+        let index = listUsers.findIndex(item => item._id === user._id);
 
-        cloneListUsers[index].first_name = user.first_name;
+        cloneListUsers[index].email = user.email;
+        cloneListUsers[index].Role = user.Role;
         setListUsers(cloneListUsers);
     }
 
     const handleDeleteUserFromModal = (user) => {
         let cloneListUsers = _.cloneDeep(listUsers);
-        cloneListUsers = cloneListUsers.filter(item => item.id !== user.id);
+        cloneListUsers = cloneListUsers.filter(item => item.email !== user.email);
         setListUsers(cloneListUsers);
     }
 
@@ -61,14 +62,14 @@ function User() {
     }, [])
 
 
-    const getUsers = async (page) => {
-        let res = await fetchAllUser(page);
-        if (res && res.data) {
-            setTotalUsers(res.total)
-            setTotalPages(res.total_pages)
-            setListUsers(res.data)
+    const getUsers = async () => {
+        let res = await fetchAllUser();
+        if (res) {
+            setListUsers(res)
         }
     }
+
+
 
     const handlePageClick = (event) => {
         getUsers(+event.selected + 1);
@@ -117,11 +118,10 @@ function User() {
                         Add new user
                     </Button>
                 </div>
-                <div className='col-6 my-3'>
+                <div className='my-3'>
                     <input
                         className={cx('form-control')}
                         placeholder={"Search user by email"}
-                        // value={keyword}
                         onChange={(event) => handleSearch(event)}
                     />
                 </div>
@@ -130,11 +130,7 @@ function User() {
                         <tr>
                             <td>
                                 <div className={cx('sort-header')}>
-                                    <span>ID</span>
-                                    <span className={cx('sort-icon')}>
-                                        {sortBy === "asc" ? <FontAwesomeIcon onClick={() => handleSort("desc", "id")} icon={faSortDown} />
-                                            : <FontAwesomeIcon onClick={() => handleSort("asc", "id")} icon={faSortUp} />}
-                                    </span>
+                                    <span>Role</span>
                                 </div>
                             </td>
                             <td>Email</td>
@@ -154,33 +150,34 @@ function User() {
                         </tr>
                     </thead>
                     <tbody className={cx('table-body')}>
-                        {listUsers && listUsers.length > 0 &&
-                            listUsers.map((value, index) => {
-                                return (
-                                    <tr key={`users-${index}`}>
-                                        <td>{value.id}</td>
-                                        <td>{value.email}</td>
-                                        <td>{value.first_name}</td>
-                                        <td>{value.last_name}</td>
-                                        <td>
-                                            <Btn
-                                                variant="warning"
-                                                className={cx('btn-edit')}
-                                                onClick={() => handleEditUser(value)}
-                                            >
-                                                Edit
-                                            </Btn>
-                                            <Btn
-                                                variant="danger"
-                                                className={cx('btn-delete')}
-                                                onClick={() => handleDeleteUser(value)}
-                                            >
-                                                Delete
-                                            </Btn>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
+                        {listUsers.map((value, index) => {
+                            return (
+                                <tr key={`users-${index}`}>
+                                    <td>
+                                        {value.Role}
+                                    </td>
+                                    <td>{value.email}</td>
+                                    <td>{value.First_name}</td>
+                                    <td>{value.Last_name}</td>
+                                    <td>
+                                        <Btn
+                                            variant="warning"
+                                            className={cx('btn-edit')}
+                                            onClick={() => handleEditUser(value)}
+                                        >
+                                            Edit
+                                        </Btn>
+                                        <Btn
+                                            variant="danger"
+                                            className={cx('btn-delete')}
+                                            onClick={() => handleDeleteUser(value)}
+                                        >
+                                            Delete
+                                        </Btn>
+                                    </td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>

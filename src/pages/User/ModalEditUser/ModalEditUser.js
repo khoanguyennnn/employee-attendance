@@ -1,38 +1,49 @@
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import styles from './ModalEditUser.module.scss'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { putUpdateUser } from "~/services/userService";
+import { putUpdateUserEmail, putUpdateUserRole } from "~/services/userService";
 
 const cx = classNames.bind(styles);
 
 const ModalEditUser = (props) => {
     const { show, handleClose, dataUserEdit, handleEditUserFromModal } = props;
-    const [name, setName] = useState("");
-    const [job, setJob] = useState("");
+    const [fName, setFName] = useState("");
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("employee");
+    const [rate, setRate] = useState("12");
+    const [roleTitle, setRoleTitle] = useState("Employee");
 
-    const handleEditUser = async () => {
-        let res = await putUpdateUser(name, job)
-        if (res && res.updatedAt) {
-            //success
-            handleEditUserFromModal({
-                first_name: name,
-                id: dataUserEdit.id
-            })
-
-            handleClose();
-            toast.success("Update user succeed!")
+    const handleRoleTitle = (role) => {
+        setRole(role);
+        if (role === "employee") {
+            setRoleTitle("Employee")
+        } else if (role === "manager") {
+            setRoleTitle("Manager")
         }
     }
 
-    useEffect(() => {
-        if (show) {
-            setName(dataUserEdit.first_name)
+    const handleEditUser = async () => {
+        let resEmail = await putUpdateUserEmail(dataUserEdit.email, email)
+        let resRole = await putUpdateUserRole(dataUserEdit.email, role)
+
+        if (resEmail === "change email successfully" && resRole === "change Role successfully") {
+            handleEditUserFromModal({
+                email: email,
+                Role: role,
+                _id: dataUserEdit._id
+            })
+            handleClose();
+            toast.success("Update user succeed!")
+        } else {
+            toast.error("Cannot update user!")
         }
-    }, [dataUserEdit])
+
+    }
 
     return (
         <>
@@ -49,25 +60,25 @@ const ModalEditUser = (props) => {
                     <div className={cx('body-add-new')}>
                         <form>
                             <div className={cx("form-group")}>
-                                <label className='form-label'>Name</label>
+                                <label className={cx('form-label')}>Email</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Enter Name"
-                                    value={name}
-                                    onChange={(event) => setName(event.target.value)}
+                                    placeholder="Enter Email"
+                                    value={email}
+                                    onChange={(event) => setEmail(event.target.value)}
                                 />
                             </div>
-                            <div className={cx("form-group")}>
-                                <label className={cx('form-label')}>Job</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Job"
-                                    value={job}
-                                    onChange={(event) => setJob(event.target.value)}
-                                />
-                            </div>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    {roleTitle}
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => handleRoleTitle("employee")}>Employee</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => handleRoleTitle("manager")}>Manager</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
 
                         </form>
                     </div>

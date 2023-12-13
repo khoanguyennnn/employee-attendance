@@ -25,7 +25,7 @@ function Home() {
             <h2 className={cx('welcome-title')}>Welcome to Employee Attendance Management System!</h2>
             <h3 className={cx('welcome-title')}>Our employees:</h3>
             <div className={cx('content')}>
-                {listUsers && listUsers.length > 0 && listUsers.map((value, index) => {
+                {/* {listUsers && listUsers.length > 0 && listUsers.map((value, index) => {
                     return (
                         <div className={cx('profile-container')} key={index}>
                             <img className={cx('profile-avatar')} src={value.avatar} alt="" />
@@ -33,7 +33,7 @@ function Home() {
                             <h4>{value.email}</h4>
                         </div>
                     )
-                })}
+                })} */}
             </div>
 
         </div>
