@@ -7,6 +7,7 @@ import Dashboard from '../pages/Dashboard';
 import Login from '~/pages/Login';
 import PasswordChange from '~/pages/PasswordChange';
 import Empty from '~/pages/Empty';
+import Profile from '~/pages/Profile';
 
 // Public Routes
 const publicRoutes = [
@@ -14,6 +15,7 @@ const publicRoutes = [
     { path: '/dashboard', component: Dashboard },
     { path: '/user', component: User },
     { path: '/employee', component: Employee },
+    { path: '/me', component: Profile },
     { path: '/passwordchange', component: PasswordChange, layout: HeaderOnly },
     { path: '/login', component: Login, layout: null },
     { path: '/empty', component: Empty, layout: HeaderOnly },

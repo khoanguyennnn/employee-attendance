@@ -1,6 +1,8 @@
 import { useState } from "react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
+
 import styles from '../Login.module.scss';
 import InputEmail from "./InputEmail";
 import OTP from "./OTP";
@@ -15,7 +17,7 @@ function Identify() {
 
         <div className={cx('content')}>
             {isMount ? <InputEmail setIsMount={setIsMount} setCloneEmail={setCloneEmail} /> : <OTP email={cloneEmail} />}
-            <a href="/login">Back</a>
+            <a href="/login" className={cx('btn-back')}><FontAwesomeIcon icon={faAngleLeft} /></a>
         </div >
     );
 }

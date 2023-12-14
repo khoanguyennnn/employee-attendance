@@ -58,7 +58,7 @@ function PasswordChange() {
             <div className={cx('title')}>Reset your password</div>
             <div className={cx('input-holder')}>
                 <div className={cx('input-psw')}>
-                    <div className={cx('text')}>Confirm Password</div>
+                    <div className={cx('text')}>Enter New Password</div>
                     <input
                         className={cx('input-box')}
                         type="password"

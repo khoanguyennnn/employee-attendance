@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser, faTableColumns, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser, faTableColumns, faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
 
 import styles from './Sidebar.module.scss';
 import Menu, { MenuItem } from './Menu';
@@ -55,6 +55,15 @@ function Sidebar() {
             <div className={cx('line-wrapper')}>
                 <span className={cx('lines')}></span>
             </div>
+            <h3 className={cx('title')}>User Profile</h3>
+            <Menu>
+                <MenuItem
+                    title="Profile"
+                    to={'/me'}
+                    icon={<FontAwesomeIcon icon={faUser} />}
+                    activeIcon={<FontAwesomeIcon icon={faUser} />}
+                />
+            </Menu>
         </aside>
     );
 }
