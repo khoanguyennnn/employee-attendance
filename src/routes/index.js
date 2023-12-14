@@ -6,6 +6,7 @@ import Employee from '../pages/Employee';
 import Dashboard from '../pages/Dashboard';
 import Login from '~/pages/Login';
 import PasswordChange from '~/pages/PasswordChange';
+import Empty from '~/pages/Empty';
 
 // Public Routes
 const publicRoutes = [
@@ -15,6 +16,7 @@ const publicRoutes = [
     { path: '/employee', component: Employee },
     { path: '/passwordchange', component: PasswordChange, layout: HeaderOnly },
     { path: '/login', component: Login, layout: null },
+    { path: '/empty', component: Empty, layout: HeaderOnly },
 ]
 
 const privateRoutes = [

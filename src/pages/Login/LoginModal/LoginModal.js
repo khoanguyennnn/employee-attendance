@@ -47,6 +47,9 @@ function LoginModal(props) {
             if (res && res.status === 404) {
                 toast.error(res.data.message);
             }
+            if (res && res.status === 401) {
+                toast.error(res.data.message);
+            }
         }
         setShowLoading(false);
     }
@@ -76,7 +79,7 @@ function LoginModal(props) {
                     />
                     <FontAwesomeIcon className={cx('eye-icon')} icon={isShowPassword === true ? faEye : faEyeSlash} onClick={() => setIsShowPassword(!isShowPassword)} />
                 </div>
-                <p onClick={() => setIsMount(false)}>Forgot password?</p>
+                <p className={cx('forgot-password')} onClick={() => setIsMount(false)}>Forgot password?</p>
             </div>
             <button
                 className={cx('btn-submit', email && password ? 'active' : '')}

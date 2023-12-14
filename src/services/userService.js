@@ -63,6 +63,11 @@ const getAllUserAttendance = () => {
     return axios.get('/api/users/get/all/atten/user', { headers: { "Authorization": `Bearer ${myToken}` } })
 }
 
+const getRole = () => {
+    var myToken = localStorage.getItem('accessToken');
+    return axios.get('/api/user/get/Role', { headers: { "Authorization": `Bearer ${myToken}` } })
+}
+
 export {
     fetchAllUser,
     postCreateUser,
@@ -76,5 +81,6 @@ export {
     fetchUser,
     postUserAttendance,
     postUserCheckOut,
-    getAllUserAttendance
+    getAllUserAttendance,
+    getRole
 };

@@ -59,6 +59,13 @@ body .wrapper {
     right: 0px;
 }
 
+.forgot-password {
+    cursor: pointer;
+    &:hover {
+        color: bisque;
+    }
+}
+
 .btn-submit {
     cursor: pointer;
     width: 300px;

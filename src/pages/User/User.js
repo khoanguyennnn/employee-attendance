@@ -6,7 +6,6 @@ import _ from "lodash";
 import { debounce } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import Dropdown from 'react-bootstrap/Dropdown';
 
 import { fetchAllUser } from "~/services/userService";
 import styles from './User.module.scss';
