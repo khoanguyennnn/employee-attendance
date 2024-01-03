@@ -55,7 +55,7 @@ function Sidebar() {
             <div className={cx('line-wrapper')}>
                 <span className={cx('lines')}></span>
             </div>
-            <h3 className={cx('title')}>User Profile</h3>
+            <h3 className={cx('title')}>User</h3>
             <Menu>
                 <MenuItem
                     title="Profile"

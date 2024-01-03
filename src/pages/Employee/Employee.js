@@ -1,13 +1,14 @@
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 
 import styles from './Employee.module.scss';
 import ModalConfirm from "./ModalConfirm";
 import { postUserAttendance } from "~/services/userService";
 import { toast } from "react-toastify";
-
+import useUnsavedChangesWarn from "~/hooks/useUnsavedChangesWarn";
 
 const cx = classNames.bind(styles)
 
@@ -17,6 +18,8 @@ function Employee() {
     const [active, setActive] = useState(false);
 
     const [isShowModalCheckOut, setIsShowCheckOut] = useState(false);
+
+    const [setDirty, setPristine] = useUnsavedChangesWarn();
 
     const handleClose = () => {
         setIsShowCheckOut(false);
@@ -65,34 +68,53 @@ function Employee() {
     }
 
     return (
-        <div className={cx('wrapper')}>
-            <h1>Check Attendance</h1>
-            <div className={cx('content')}>
-                <div className={cx('time-count')}>
-                    <h1 className={cx('title')}>Timer</h1>
-                    <h1 className={cx('time-setter')}>{time.h < 10 ? "0" + time.h : time.h} : {time.m < 10 ? "0" + time.m : time.m} : {time.s < 10 ? "0" + time.s : time.s}</h1>
-                </div>
-                <div className={cx('take-attendance')}>
-                    {!active ?
-                        <>
-                            <button className={cx('btn-checkin')} onClick={() => checkUserAttendance()}><FontAwesomeIcon className={cx('icon')} icon={faRightToBracket} /></button>
-                            <h1 className={cx('title-checkin')}>Check in</h1>
-                        </>
-                        :
-                        <>
-                            <button className={cx('btn-checkout')} onClick={() => handleShowModal()}><FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket} /></button>
-                            <h1 className={cx('title-checkin')}>Check out</h1>
-                        </>
-                    }
-                </div>
+        <>
 
+            <div className={cx('wrapper')}>
+                <h1>Check Attendance</h1>
+                <div className={cx('content')}>
+                    <div className={cx('time-count')}>
+                        <h1 className={cx('title')}>Timer</h1>
+                        <h1 className={cx('time-setter')}>{time.h < 10 ? "0" + time.h : time.h} : {time.m < 10 ? "0" + time.m : time.m} : {time.s < 10 ? "0" + time.s : time.s}</h1>
+                    </div>
+                    <div className={cx('take-attendance')}>
+                        {!active ?
+                            <>
+                                <button
+                                    className={cx('btn-checkin')}
+                                    onClick={() => {
+                                        checkUserAttendance();
+                                        setDirty();
+                                    }
+                                    }>
+                                    <FontAwesomeIcon className={cx('icon')} icon={faRightToBracket} />
+                                </button>
+                                <h1 className={cx('title-checkin')}>Check in</h1>
+                            </>
+                            :
+                            <>
+                                <button
+                                    className={cx('btn-checkout')}
+                                    onClick={() => {
+                                        handleShowModal();
+                                        setPristine();
+                                    }
+                                    }>
+                                    <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket} />
+                                </button>
+                                <h1 className={cx('title-checkin')}>Check out</h1>
+                            </>
+                        }
+                    </div>
+
+                </div>
+                <ModalConfirm
+                    show={isShowModalCheckOut}
+                    handleClose={handleClose}
+                    stop={stop}
+                />
             </div>
-            <ModalConfirm
-                show={isShowModalCheckOut}
-                handleClose={handleClose}
-                stop={stop}
-            />
-        </div>
+        </>
     );
 }
 
