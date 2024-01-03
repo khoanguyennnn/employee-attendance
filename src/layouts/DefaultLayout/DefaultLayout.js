@@ -1,15 +1,20 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 
 import styles from './DefaultLayout.module.scss';
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { getRole } from '~/services/userService';
+import { TakeAttendanceContext } from '~/components/TakeAttendance';
+import TakeAttendanceModal from '~/components/TakeAttendance/TakeAttendanceModal';
 
 const cx = classNames.bind(styles)
 
 function DefaultLayout({ children }) {
+    const context = useContext(TakeAttendanceContext);
+
     const navigate = useNavigate();
 
     const [userRole, setUserRole] = useState('');
@@ -50,6 +55,7 @@ function DefaultLayout({ children }) {
                     {children}
                 </div>
             </div>
+            {context.active && <TakeAttendanceModal />}
         </div>
     );
 }

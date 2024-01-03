@@ -1,18 +1,20 @@
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
 
 
 import styles from './Employee.module.scss';
-import ModalConfirm from "./ModalConfirm";
 import { postUserAttendance } from "~/services/userService";
 import { toast } from "react-toastify";
 import useUnsavedChangesWarn from "~/hooks/useUnsavedChangesWarn";
+import { TakeAttendanceContext } from "~/components/TakeAttendance";
 
 const cx = classNames.bind(styles)
 
 function Employee() {
+    const context = useContext(TakeAttendanceContext);
+
     const [time, setTime] = useState({ s: 0, m: 0, h: 0 })
     const [interv, setInterv] = useState();
     const [active, setActive] = useState(false);
@@ -20,10 +22,6 @@ function Employee() {
     const [isShowModalCheckOut, setIsShowCheckOut] = useState(false);
 
     const [setDirty, setPristine] = useUnsavedChangesWarn();
-
-    const handleClose = () => {
-        setIsShowCheckOut(false);
-    }
 
     const handleShowModal = () => {
         setIsShowCheckOut(true);
@@ -85,6 +83,7 @@ function Employee() {
                                     onClick={() => {
                                         checkUserAttendance();
                                         setDirty();
+                                        context.handleShow();
                                     }
                                     }>
                                     <FontAwesomeIcon className={cx('icon')} icon={faRightToBracket} />
@@ -108,11 +107,6 @@ function Employee() {
                     </div>
 
                 </div>
-                <ModalConfirm
-                    show={isShowModalCheckOut}
-                    handleClose={handleClose}
-                    stop={stop}
-                />
             </div>
         </>
     );

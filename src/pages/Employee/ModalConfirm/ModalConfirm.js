@@ -5,11 +5,20 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { postUserCheckOut } from "~/services/userService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "~/context/UserContext";
+import { useContext } from "react";
+import { TakeAttendanceContext } from "~/components/TakeAttendance";
 
 
 const cx = classNames.bind(styles);
 
 const ModalConfirm = (props) => {
+    const navigate = useNavigate();
+
+    const { logout, user } = useContext(UserContext);
+    const context = useContext(TakeAttendanceContext);
+
     const { show, handleClose, stop } = props;
 
     const handleConfirmModal = async () => {
@@ -18,15 +27,23 @@ const ModalConfirm = (props) => {
         if (res && res === "check out successfully") {
             stop();
             handleClose();
+            handleLogOut();
+            context.handleShow();
             toast.success("Thank you for today!")
         } else {
             toast.error("Cannot check out!")
         }
     }
 
+    const handleLogOut = () => {
+        logout();
+        navigate("/login");
+    }
+
     return (
         <>
             <Modal
+                className={cx('wrapper')}
                 show={show}
                 onHide={handleClose}
                 backdrop="static"

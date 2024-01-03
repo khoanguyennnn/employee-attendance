@@ -18,7 +18,6 @@ const cx = classNames.bind(styles)
 
 function User() {
     const [listUsers, setListUsers] = useState([]);
-    const [totalUsers, setTotalUsers] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
 
     const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
