@@ -89,19 +89,10 @@ function Employee() {
                                     <FontAwesomeIcon className={cx('icon')} icon={faRightToBracket} />
                                 </button>
                                 <h1 className={cx('title-checkin')}>Check in</h1>
+                                <h5 className={cx('title-note')}>(Note that do not reload this site)</h5>
                             </>
                             :
                             <>
-                                <button
-                                    className={cx('btn-checkout')}
-                                    onClick={() => {
-                                        handleShowModal();
-                                        setPristine();
-                                    }
-                                    }>
-                                    <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket} />
-                                </button>
-                                <h1 className={cx('title-checkin')}>Check out</h1>
                             </>
                         }
                     </div>

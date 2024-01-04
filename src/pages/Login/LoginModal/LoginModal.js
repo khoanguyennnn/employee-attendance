@@ -48,7 +48,11 @@ function LoginModal(props) {
                 toast.error(res.data.message);
             }
             if (res && res.status === 401) {
-                toast.error(res.data.message);
+                if (res.data.message) {
+                    toast.error(res.data.message);
+                } else if (res.data) {
+                    toast.error(res.data)
+                }
             }
         }
         setShowLoading(false);

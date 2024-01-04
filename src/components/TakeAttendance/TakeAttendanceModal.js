@@ -38,7 +38,7 @@ function TakeAttendanceModal() {
 
     return (
         <>
-            {!isShowModalCheckOut ? <div className={cx('modal-mask')}>
+            <div className={cx('modal-mask')}>
                 <div className={cx('wrapper')}>
                     <div className={cx('container')}>
                         <div className={cx('inner')}>
@@ -54,18 +54,18 @@ function TakeAttendanceModal() {
                                         <FontAwesomeIcon className={cx('icon')} icon={faRightFromBracket} />
                                     </button>
                                     <h1 className={cx('title-checkin')}>Check out</h1>
+                                    <h5 className={cx('title-note')}>(Note that do not reload this site when timer is setted)</h5>
                                 </>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                :
-                <ModalConfirm
-                    show={isShowModalCheckOut}
-                    handleClose={handleClose}
-                    stop={stop}
-                />}
+            <ModalConfirm
+                show={isShowModalCheckOut}
+                handleClose={handleClose}
+                stop={stop}
+            />
         </>
     );
 }
